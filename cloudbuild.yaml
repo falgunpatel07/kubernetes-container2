@@ -1,11 +1,11 @@
 steps:
   # Build the container image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'us-central1-docker.pkg.dev/${PROJECT_ID}/kubernetes-repo/container2:${SHORT_SHA}', '.']
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/${PROJECT_ID}/kubernetes-repo/container2:latest', '.']
   
   # Push the container image to Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'us-central1-docker.pkg.dev/${PROJECT_ID}/kubernetes-repo/container2:${SHORT_SHA}']
+    args: ['push', 'us-central1-docker.pkg.dev/${PROJECT_ID}/kubernetes-repo/container2:latest']
   
   # Deploy container image to GKE
   - name: 'gcr.io/cloud-builders/kubectl'
@@ -13,14 +13,13 @@ steps:
     - 'set'
     - 'image'
     - 'deployment/container2'
-    - 'container2=us-central1-docker.pkg.dev/${PROJECT_ID}/kubernetes-repo/container2:${SHORT_SHA}'
+    - 'container2=us-central1-docker.pkg.dev/${PROJECT_ID}/kubernetes-repo/container2:latest'
     env:
     - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
     - 'CLOUDSDK_CONTAINER_CLUSTER=kubernetes-assignment-cluster'
 
-# Add this section to fix the logging error
 options:
   logging: CLOUD_LOGGING_ONLY
 
 images:
-- 'us-central1-docker.pkg.dev/${PROJECT_ID}/kubernetes-repo/container2:${SHORT_SHA}'
+- 'us-central1-docker.pkg.dev/${PROJECT_ID}/kubernetes-repo/container2:latest'
