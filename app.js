@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 //test
 const PORT = process.env.PORT || 3001;
 const STORAGE_DIR = process.env.STORAGE_DIR || './storage'; // This will map to PV in k8s
-
+// kube video
 // Ensure storage directory exists
 if (!fs.existsSync(STORAGE_DIR)) {
   fs.mkdirSync(STORAGE_DIR, { recursive: true });
